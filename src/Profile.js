@@ -42,7 +42,7 @@ class Profile extends React.Component {
                                     NavigationActions.init({ routeName: 'Login' })
                                 ]
                             });
-                            this.props.navigation.dispatch(resetAction);
+                            navigation.dispatch(resetAction);
                         });
                     }}>
                 <Text>Logout</Text>

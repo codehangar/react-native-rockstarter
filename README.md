@@ -1,3 +1,20 @@
+# react-native-rockstarter
+A boilerplate from Code Hangar for getting started with react native
+
+The core libraries being used are:
+
+- [Create React Native App](https://github.com/react-community/create-react-native-app)
+  - Initial Project Creation
+- [Expo](https://expo.io/tools)
+  - Allows you to easily view dev environment on your phone
+  - Also has lots of API for native mobile functions
+- [Native Base](https://nativebase.io/)
+  - UI Kit with many standard components and theme-ing capabilities
+- [React Navigation](https://github.com/react-community/react-navigation)
+  - Handles App Navigation and Screen Transitions
+
+---
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).

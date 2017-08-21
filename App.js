@@ -1,8 +1,10 @@
 import React from 'react';
 import { AppLoading } from 'expo';
 import { StyleProvider } from 'native-base';
+import { Provider } from 'react-redux';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';
+import store from './src/data/store';
 import App from './src/App';
 
 export default class Base extends React.Component {
@@ -25,9 +27,11 @@ export default class Base extends React.Component {
             return <AppLoading/>;
         }
         return (
-            <StyleProvider style={getTheme(commonColor)}>
-                <App/>
-            </StyleProvider>
+            <Provider store={store}>
+                <StyleProvider style={getTheme(commonColor)}>
+                    <App/>
+                </StyleProvider>
+            </Provider>
         );
     }
 }

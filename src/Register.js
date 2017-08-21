@@ -1,4 +1,5 @@
 import React from 'react';
+import Expo from 'expo';
 import {
     StyleSheet,
     Image,
@@ -18,17 +19,15 @@ import {
 } from 'native-base/src';
 import { NavigationActions } from 'react-navigation';
 import API from './utils/api';
-import { getItem, setItem, removeItem, storageKeys } from './utils/async-storage';
-import store from './data/store';
-import * as types from './data/action-types';
+import { setItem, storageKeys } from './utils/async-storage';
 
 const background = require('./images/codehangar-transparent.png');
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
     static navigationOptions = {
-        title: 'Login',
+        title: 'Register',
         headerLeft: null
     };
 
@@ -36,32 +35,13 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            checkingAuthStatus: true,
+            error: {},
+            first_name: '',
+            last_name: '',
+            username: '',
             email: '',
             password: ''
         };
-    }
-
-    componentDidMount() {
-        getItem(storageKeys.AUTH_TOKEN).then((token) => {
-            if (token) {
-                API('/users').then((responseJson) => {
-                    console.log('responseJson', responseJson); // eslint-disable-line no-console
-                    store.dispatch({
-                        type: types.SET_USER,
-                        user: responseJson.data
-                    });
-                    this.goHome();
-                }).catch((error) => {
-                    console.log('error', error); // eslint-disable-line no-console
-                    removeItem(storageKeys.AUTH_TOKEN).then(() => {
-                        this.setState({ checkingAuthStatus: false });
-                    });
-                });
-            } else {
-                this.setState({ checkingAuthStatus: false });
-            }
-        })
     }
 
     goHome = () => {
@@ -79,10 +59,14 @@ export default class Login extends React.Component {
             isLoading: true
         });
         const body = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            username: this.state.username,
             email: this.state.email || '',
-            password: this.state.password || ''
+            password: this.state.password || '',
+            device_id: Expo.Constants.deviceId
         };
-        API('/auth', {
+        API('/users', {
             method: 'POST',
             body
         }).then((responseJson) => {
@@ -91,10 +75,6 @@ export default class Login extends React.Component {
                 isLoading: false
             });
             setItem(storageKeys.AUTH_TOKEN, responseJson.token).then(() => {
-                store.dispatch({
-                    type: types.SET_USER,
-                    user: responseJson.data
-                });
                 this.goHome();
             });
         }).catch((error) => {
@@ -116,18 +96,11 @@ export default class Login extends React.Component {
     };
 
     render() {
-        if (this.state.isLoading || this.state.checkingAuthStatus) {
+        if (this.state.isLoading) {
             return (
                 <Container>
                     <Content contentContainerStyle={styles.container}>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.upper}>
-                                <Image source={background} style={styles.shadow} resizeMode="contain"/>
-                            </View>
-                            <View style={styles.lower}>
-                                <Spinner/>
-                            </View>
-                        </View>
+                        <Spinner/>
                     </Content>
                 </Container>
             );
@@ -144,6 +117,24 @@ export default class Login extends React.Component {
                             {this.state.error
                                 ? <Text>{this.state.error.message}</Text>
                                 : null}
+                            <Item error={!!this.hasInputError('first_name')}>
+                                <Input placeholder='First Name'
+                                       value={this.state.first_name}
+                                       onChangeText={(first_name) => this.setState({ first_name })}/>
+                            </Item>
+                            <Item error={!!this.hasInputError('last_name')}>
+                                <Input placeholder='Last Name'
+                                       value={this.state.last_name}
+                                       onChangeText={(last_name) => this.setState({ last_name })}/>
+                            </Item>
+                            <Item error={!!this.hasInputError('username')}>
+                                <Icon active name="person"/>
+                                <Input placeholder="Username"
+                                       value={this.state.username}
+                                       autoCapitalize="none"
+                                       autoCorrect={false}
+                                       onChangeText={(username) => this.setState({ username })}/>
+                            </Item>
                             <Item error={!!this.hasInputError('email')}>
                                 <Icon active name="at"/>
                                 <Input placeholder="Email"
@@ -156,6 +147,7 @@ export default class Login extends React.Component {
                             <Item error={!!this.hasInputError('password')}>
                                 <Icon active name='unlock'/>
                                 <Input placeholder='Password'
+                                       value={this.state.password}
                                        secureTextEntry
                                        onChangeText={(password) => this.setState({ password })}/>
                             </Item>
@@ -163,14 +155,14 @@ export default class Login extends React.Component {
                                     style={styles.btn}
                                     onPress={this.login}
                             >
-                                <Text>LOGIN</Text>
+                                <Text>REGISTER</Text>
                             </Button>
                             <Button block
                                     transparent
                                     style={styles.btn}
-                                    onPress={() => this.props.navigation.navigate('Register')}
+                                    onPress={() => this.props.navigation.navigate('Login')}
                             >
-                                <Text>Register</Text>
+                                <Text>Login</Text>
                             </Button>
                         </View>
                     </View>

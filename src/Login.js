@@ -115,24 +115,7 @@ export default class Login extends React.Component {
         return null;
     };
 
-    render() {
-        if (this.state.isLoading || this.state.checkingAuthStatus) {
-            return (
-                <Container>
-                    <Content contentContainerStyle={styles.container}>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.upper}>
-                                <Image source={background} style={styles.shadow} resizeMode="contain"/>
-                            </View>
-                            <View style={styles.lower}>
-                                <Spinner/>
-                            </View>
-                        </View>
-                    </Content>
-                </Container>
-            );
-        }
-
+    wrapLowerContent = (lowerContent) => {
         return (
             <Container>
                 <Content contentContainerStyle={styles.container}>
@@ -141,41 +124,62 @@ export default class Login extends React.Component {
                             <Image source={background} style={styles.shadow} resizeMode="contain"/>
                         </View>
                         <View style={styles.lower}>
-                            {this.state.error
-                                ? <Text>{this.state.error.message}</Text>
-                                : null}
-                            <Item error={!!this.hasInputError('email')}>
-                                <Icon active name="at"/>
-                                <Input placeholder="Email"
-                                       value={this.state.email}
-                                       autoCapitalize="none"
-                                       keyboardType="email-address"
-                                       autoCorrect={false}
-                                       onChangeText={(email) => this.setState({ email })}/>
-                            </Item>
-                            <Item error={!!this.hasInputError('password')}>
-                                <Icon active name='unlock'/>
-                                <Input placeholder='Password'
-                                       secureTextEntry
-                                       onChangeText={(password) => this.setState({ password })}/>
-                            </Item>
-                            <Button block
-                                    style={styles.btn}
-                                    onPress={this.login}
-                            >
-                                <Text>LOGIN</Text>
-                            </Button>
-                            <Button block
-                                    transparent
-                                    style={styles.btn}
-                                    onPress={() => this.props.navigation.navigate('Register')}
-                            >
-                                <Text>Register</Text>
-                            </Button>
+                            {lowerContent}
                         </View>
                     </View>
                 </Content>
             </Container>
+        );
+    };
+
+    render() {
+        if (this.state.isLoading || this.state.checkingAuthStatus) {
+            return this.wrapLowerContent(
+                <Spinner/>
+            );
+        }
+
+        return this.wrapLowerContent(
+            <View>
+                {this.state.error
+                    ? <Text>{this.state.error.message}</Text>
+                    : null}
+                <Item error={!!this.hasInputError('email')}>
+                    <Icon name="at"/>
+                    <Input placeholder="Email"
+                           value={this.state.email}
+                           autoCapitalize="none"
+                           keyboardType="email-address"
+                           autoCorrect={false}
+                           onChangeText={(email) => this.setState({ email })}/>
+                </Item>
+                <Item error={!!this.hasInputError('password')}>
+                    <Icon name='unlock'/>
+                    <Input placeholder='Password'
+                           value={this.state.password}
+                           autoCapitalize="none"
+                           autoCorrect={false}
+                           secureTextEntry={!this.state.showPassword}
+                           onChangeText={(password) => this.setState({ password })}/>
+                    <Button transparent style={{ paddingBottom: 0 }}
+                            onPress={() => this.setState({ showPassword: !this.state.showPassword })}>
+                        <Icon name={!this.state.showPassword ? 'eye' : 'eye-off'}/>
+                    </Button>
+                </Item>
+                <Button block
+                        style={styles.btn}
+                        onPress={this.login}
+                >
+                    <Text>LOGIN</Text>
+                </Button>
+                <Button block
+                        transparent
+                        style={styles.btn}
+                        onPress={() => this.props.navigation.navigate('Register')}
+                >
+                    <Text>Register</Text>
+                </Button>
+            </View>
         );
     }
 }
@@ -202,20 +206,10 @@ const styles = StyleSheet.create({
         flex: 1,
         width: null
     },
-    bg: {
-        // flex: 1,
-        marginTop: deviceHeight / 3,
-        paddingTop: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 30,
-        bottom: 0
-    },
     input: {
         marginBottom: 20
     },
     btn: {
         marginTop: 20
-        // alignSelf: 'center'
     }
 });

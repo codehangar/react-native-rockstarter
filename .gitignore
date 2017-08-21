@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+# JUnit test results
+test-results.xml
+
+# IDEA (WebStorm) Project Settings
+.idea/**
+!.idea/codeStyleSettings.xml
+
+# Empo.io stuff
+.expo/

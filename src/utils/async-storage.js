@@ -44,7 +44,7 @@ export async function setItem(key, val) {
     }
 }
 
-export async function removeItem(key, val) {
+export async function removeItem(key) {
     if (!key) {
         throw new Error('key is required');
     }

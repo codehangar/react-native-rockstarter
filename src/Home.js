@@ -9,7 +9,7 @@ import {
     H1, H2, H3,
     Text,
     Button
-} from 'native-base';
+} from 'native-base/src';
 // import { Button } from 'native-base/src/basic/Button';
 
 export default class Home extends React.Component {

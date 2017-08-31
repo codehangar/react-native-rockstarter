@@ -65,7 +65,7 @@ function parseJSON(response) {
 export default function (path, options = {}) {
     return new Promise((resolve, reject) => {
         const url = `${API_PROTOCOL}${API_HOST}${API_VERSION}${path}`;
-        console.log('url', url); // eslint-disable-line no-console
+        console.log((options.method || 'GET'), url); // eslint-disable-line no-console
 
         getItem(storageKeys.AUTH_TOKEN).then((token) => {
             const defaultOptions = {

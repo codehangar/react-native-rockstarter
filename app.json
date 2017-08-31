@@ -1,5 +1,30 @@
 {
   "expo": {
-    "sdkVersion": "20.0.0"
+    "name": "React Native Rockstarter",
+    "icon": "./src/images/codehangar.png",
+    "version": "0.1.0",
+    "slug": "react-native-rockstarter",
+    "ios": {
+      "bundleIdentifier": "io.codehangar.react-native-rockstarter",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "io.codehangar.react-native-rockstarter",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "sdkVersion": "20.0.0",
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff"
+    },
+    "loading": {
+      "icon": "./src/images/codehangar.png",
+      "backgroundColor": "#2aa198"
+    },
+    "scheme": "nomadr"
   }
 }

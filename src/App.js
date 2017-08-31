@@ -1,4 +1,5 @@
 import React from 'react';
+import { Root } from 'native-base/src';
 import { StackNavigator } from 'react-navigation';
 import Home from './Home';
 import Login from './Login';
@@ -8,7 +9,7 @@ import Demo from './Demo';
 import StarWars from './StarWars';
 import Person from './Person';
 
-export default StackNavigator({
+const AppNavigator =  StackNavigator({
     Home: { screen: Home },
     Login: { screen: Login },
     Register: { screen: Register },
@@ -19,3 +20,9 @@ export default StackNavigator({
 }, {
     initialRouteName: 'Login'
 });
+
+export default () => (
+    <Root>
+        <AppNavigator/>
+    </Root>
+);

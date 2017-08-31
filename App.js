@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import { StyleProvider } from 'native-base';
+import { StyleProvider } from 'native-base/src';
 import { Provider } from 'react-redux';
 import getTheme from './native-base-theme/components';
 import commonColor from './native-base-theme/variables/commonColor';

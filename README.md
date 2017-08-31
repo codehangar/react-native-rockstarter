@@ -1,6 +1,24 @@
 # react-native-rockstarter
 A boilerplate from Code Hangar for getting started with react native
 
+---
+
+## Running App Via Expo
+
+Official Live Build:  
+[https://expo.io/@codehangar/react-native-rockstarter](https://expo.io/@codehangar/react-native-rockstarter)
+
+## Developing Locally
+
+- `npm i` or `yarn`
+- Open project in the (Expo XDE)[https://expo.io/tools]
+- Select **Host -> LAN or Tunnel** from the gear icon
+- Click **Share** to generate a QR code 
+- Connect with your phone via the Expo App
+- Or, launch a simulator from the **Device** Button 
+
+---
+
 The core libraries being used are:
 
 - [Create React Native App](https://github.com/react-community/create-react-native-app)

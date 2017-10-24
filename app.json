@@ -16,7 +16,7 @@
         "ACCESS_FINE_LOCATION"
       ]
     },
-    "sdkVersion": "20.0.0",
+    "sdkVersion": "22.0.0",
     "androidStatusBar": {
       "barStyle": "dark-content",
       "backgroundColor": "#ffffff"

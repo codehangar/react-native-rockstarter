@@ -22,8 +22,9 @@
       "backgroundColor": "#ffffff"
     },
     "loading": {
-      "icon": "./src/images/codehangar.png",
-      "backgroundColor": "#2aa198"
+      "icon": "./src/images/empty.png",
+      "backgroundImage": "./src/images/loading-screen.png",
+      "hideExponentText": true
     },
     "scheme": "nomadr"
   }
